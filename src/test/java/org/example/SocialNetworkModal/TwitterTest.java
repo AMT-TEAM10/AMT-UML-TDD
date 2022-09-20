@@ -3,6 +3,9 @@ package org.example.SocialNetworkModal;
 import org.example.SocialNetworkModel.Follower;
 import org.example.SocialNetworkModel.IObserver;
 import org.example.SocialNetworkModel.Twitter;
+import org.example.SocialNetworkModel.exception.EmptyListOfSubscribersException;
+import org.example.SocialNetworkModel.exception.SubscriberAlreadyExistsException;
+import org.example.SocialNetworkModel.exception.SubscriberNotFoundException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -43,7 +46,7 @@ public class TwitterTest {
 
     @Test
     public void Notify_EmptyListOfSubscriber_ThrowsException() {
-        assertThrows(Twitter.EmptyListOfSubscribersException.class, () -> twitter.signal());
+        assertThrows(EmptyListOfSubscribersException.class, () -> twitter.signal());
     }
 
     @Test
@@ -70,11 +73,10 @@ public class TwitterTest {
         int expectedAmountOfSubscribers = 15;
         List<IObserver> followers = generateObserver(expectedAmountOfSubscribers);
         twitter.subscribe(followers);
-        // TODO
         List<IObserver> followersDuplicate = new LinkedList<>();
         followersDuplicate.add(followers.get(0));
 
-        assertThrows(Twitter.SubscriberAlreadyExistsException.class, () -> twitter.subscribe(followersDuplicate));
+        assertThrows(SubscriberAlreadyExistsException.class, () -> twitter.subscribe(followersDuplicate));
     }
 
     @Test
@@ -88,14 +90,14 @@ public class TwitterTest {
     @Test
     public void Unsubscribe_EmptyListOfSubscriber_ThrowsException() {
         Follower followerToRemove = new Follower();
-        assertThrows(Twitter.EmptyListOfSubscribersException.class, () -> twitter.unsubscribe(followerToRemove));
+        assertThrows(EmptyListOfSubscribersException.class, () -> twitter.unsubscribe(followerToRemove));
     }
 
     @Test
     public void Unsubscribe_SubscriberNotFound_ThrowsException() {
         IObserver followerNotFound = new Follower();
         twitter.subscribe(generateObserver(10));
-        assertThrows(Twitter.SubscriberNotFoundException.class, () -> twitter.unsubscribe(followerNotFound));
+        assertThrows(SubscriberNotFoundException.class, () -> twitter.unsubscribe(followerNotFound));
     }
 
 
