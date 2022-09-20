@@ -84,7 +84,7 @@ public class TwitterTest {
         List<IObserver> followers = generateObserver(20);
         twitter.subscribe(followers);
         twitter.unsubscribe(followers.get(10));
-        assertEquals(followers.size(), twitter.getObservers().size() - 1);
+        assertEquals(followers.size() - 1, twitter.getObservers().size());
     }
 
     @Test
