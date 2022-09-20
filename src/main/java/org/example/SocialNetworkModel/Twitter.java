@@ -47,9 +47,4 @@ public class Twitter implements IObservable{
     public boolean exists(IObserver followerToFind){
         throw new RuntimeException("Not Implemented");
     }
-
-    public static class TwitterException extends Exception{};
-    public static class EmptyListOfSubscribersException extends TwitterException { }
-    public static class SubscriberAlreadyExistsException extends TwitterException { }
-    public static class SubscriberNotFoundException extends TwitterException { }
 }
