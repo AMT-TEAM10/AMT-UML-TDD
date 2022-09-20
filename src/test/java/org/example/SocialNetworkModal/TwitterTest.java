@@ -7,7 +7,9 @@ import org.example.SocialNetworkModel.exception.EmptyListOfSubscribersException;
 import org.example.SocialNetworkModel.exception.SubscriberAlreadyExistsException;
 import org.example.SocialNetworkModel.exception.SubscriberNotFoundException;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -17,10 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TwitterTest {
 
-    private static Twitter twitter;
+    private Twitter twitter;
 
-    @BeforeAll
-    public static void setup() {
+    @BeforeEach
+    public void initEach(){
         twitter = new Twitter();
     }
 

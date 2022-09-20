@@ -10,7 +10,7 @@ public class Twitter implements IObservable{
     public Twitter(){}
 
     public Twitter(List<IObserver> observers) {
-        throw new RuntimeException("Not Implemented");
+        this.observers.addAll(observers);
     }
 
     public List<IObserver> getObservers() {
@@ -23,17 +23,19 @@ public class Twitter implements IObservable{
 
     @Override
     public void subscribe(List<IObserver> observer) {
-        throw new RuntimeException("Not Implemented");
+        observers.addAll(observer);
     }
 
     @Override
     public void unsubscribe(IObserver observer) {
-        throw new RuntimeException("Not Implemented");
+        observers.remove(observer);
     }
 
     @Override
     public void signal() {
-        throw new RuntimeException("Not Implemented");
+        for (IObserver ob: observers) {
+            ob.update(this);
+        }
     }
 
     public void post(String twit){
