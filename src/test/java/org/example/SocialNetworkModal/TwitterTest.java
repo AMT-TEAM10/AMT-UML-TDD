@@ -7,7 +7,9 @@ import org.example.SocialNetworkModel.exception.EmptyListOfSubscribersException;
 import org.example.SocialNetworkModel.exception.SubscriberAlreadyExistsException;
 import org.example.SocialNetworkModel.exception.SubscriberNotFoundException;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -17,10 +19,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TwitterTest {
 
-    private static Twitter twitter;
+    private Twitter twitter;
 
-    @BeforeAll
-    public static void setup() {
+    @BeforeEach
+    public void initEach() {
         twitter = new Twitter();
     }
 
@@ -50,7 +52,7 @@ public class TwitterTest {
     }
 
     @Test
-    public void Subscribe_AddFirstSubscribers_Success() {
+    public void Subscribe_AddFirstSubscribers_Success() throws SubscriberAlreadyExistsException {
         int expectedAmountOfSubscribers = 15;
         List<IObserver> followers = generateObserver(expectedAmountOfSubscribers);
         twitter.subscribe(followers);
@@ -59,7 +61,7 @@ public class TwitterTest {
     }
 
     @Test
-    public void Subscribe_AddSubscribersToExistingList_Success() {
+    public void Subscribe_AddSubscribersToExistingList_Success() throws SubscriberAlreadyExistsException {
         int expectedAmountOfSubscribers = 30;
         List<IObserver> followers = generateObserver(expectedAmountOfSubscribers / 2);
         twitter.subscribe(followers);
@@ -69,7 +71,7 @@ public class TwitterTest {
     }
 
     @Test
-    public void Subscribe_SubscriberAlreadyExists_ThrowsException() {
+    public void Subscribe_SubscriberAlreadyExists_ThrowsException() throws SubscriberAlreadyExistsException {
         int expectedAmountOfSubscribers = 15;
         List<IObserver> followers = generateObserver(expectedAmountOfSubscribers);
         twitter.subscribe(followers);
@@ -80,7 +82,7 @@ public class TwitterTest {
     }
 
     @Test
-    public void Unsubscribe_NominalCase_Success() {
+    public void Unsubscribe_NominalCase_Success() throws SubscriberAlreadyExistsException, SubscriberNotFoundException, EmptyListOfSubscribersException {
         List<IObserver> followers = generateObserver(20);
         twitter.subscribe(followers);
         twitter.unsubscribe(followers.get(10));
@@ -94,7 +96,7 @@ public class TwitterTest {
     }
 
     @Test
-    public void Unsubscribe_SubscriberNotFound_ThrowsException() {
+    public void Unsubscribe_SubscriberNotFound_ThrowsException() throws SubscriberAlreadyExistsException {
         IObserver followerNotFound = new Follower();
         twitter.subscribe(generateObserver(10));
         assertThrows(SubscriberNotFoundException.class, () -> twitter.unsubscribe(followerNotFound));

@@ -1,5 +1,9 @@
 package org.example.SocialNetworkModel;
 
+import org.example.SocialNetworkModel.exception.EmptyListOfSubscribersException;
+import org.example.SocialNetworkModel.exception.SubscriberAlreadyExistsException;
+import org.example.SocialNetworkModel.exception.SubscriberNotFoundException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +14,7 @@ public class Twitter implements IObservable{
     public Twitter(){}
 
     public Twitter(List<IObserver> observers) {
-        throw new RuntimeException("Not Implemented");
+        this.observers.addAll(observers);
     }
 
     public List<IObserver> getObservers() {
@@ -22,29 +26,49 @@ public class Twitter implements IObservable{
     }
 
     @Override
-    public void subscribe(List<IObserver> observer) {
-        throw new RuntimeException("Not Implemented");
+    public void subscribe(List<IObserver> observer) throws SubscriberAlreadyExistsException {
+        for (IObserver ob : observer) {
+            if (exists(ob)) {
+                throw new SubscriberAlreadyExistsException();
+            } else {
+                observers.add(ob);
+            }
+        }
     }
 
     @Override
-    public void unsubscribe(IObserver observer) {
-        throw new RuntimeException("Not Implemented");
+    public void unsubscribe(IObserver observer) throws SubscriberNotFoundException, EmptyListOfSubscribersException {
+        if (observers.isEmpty()) {
+            throw new EmptyListOfSubscribersException();
+        }
+
+        if (!observers.remove(observer))
+            throw new SubscriberNotFoundException();
     }
 
     @Override
-    public void signal() {
-        throw new RuntimeException("Not Implemented");
+    public void signal() throws EmptyListOfSubscribersException {
+        if (observers.isEmpty()) {
+            throw new EmptyListOfSubscribersException();
+        }
+
+        for (IObserver ob: observers) {
+            ob.update(this);
+        }
     }
 
     public void post(String twit){
-        throw new RuntimeException("Not Implemented");
+        twits.add(twit);
     }
 
     public String getLastTwit(){
-        throw new RuntimeException("Not Implemented");
+        if (twits.isEmpty()) {
+            return null;
+        }
+        return twits.get(twits.size() - 1);
     }
 
     public boolean exists(IObserver followerToFind){
-        throw new RuntimeException("Not Implemented");
+        return observers.contains(followerToFind);
     }
 }
