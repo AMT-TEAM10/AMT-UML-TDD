@@ -28,7 +28,7 @@ public class Twitter implements IObservable{
     @Override
     public void subscribe(List<IObserver> observer) throws SubscriberAlreadyExistsException {
         for (IObserver ob : observer) {
-            if (observers.contains(ob)) {
+            if (exists(ob)) {
                 throw new SubscriberAlreadyExistsException();
             } else {
                 observers.add(ob);
@@ -58,14 +58,17 @@ public class Twitter implements IObservable{
     }
 
     public void post(String twit){
-        throw new RuntimeException("Not Implemented");
+        twits.add(twit);
     }
 
     public String getLastTwit(){
-        throw new RuntimeException("Not Implemented");
+        if (twits.isEmpty()) {
+            return null;
+        }
+        return twits.get(twits.size() - 1);
     }
 
     public boolean exists(IObserver followerToFind){
-        throw new RuntimeException("Not Implemented");
+        return observers.contains(followerToFind);
     }
 }
