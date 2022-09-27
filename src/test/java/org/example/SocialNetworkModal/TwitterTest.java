@@ -1,113 +1,170 @@
 package org.example.SocialNetworkModal;
 
-import org.example.SocialNetworkModel.Follower;
-import org.example.SocialNetworkModel.IObserver;
-import org.example.SocialNetworkModel.Twitter;
-import org.example.SocialNetworkModel.exception.EmptyListOfSubscribersException;
-import org.example.SocialNetworkModel.exception.SubscriberAlreadyExistsException;
-import org.example.SocialNetworkModel.exception.SubscriberNotFoundException;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-
-import java.util.LinkedList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class TwitterTest {
+import org.example.SocialNetworkModel.Follower;
+import org.example.SocialNetworkModel.IObserver;
+import org.example.SocialNetworkModel.Twitter;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-    private Twitter twitter;
+import java.util.ArrayList;
+import java.util.List;
+
+public class TwitterTest {
+    private Twitter _twitter;
 
     @BeforeEach
-    public void initEach() {
-        twitter = new Twitter();
+    public void beforeEach(){
+        _twitter = new Twitter();
     }
 
     @Test
-    public void Observers_AfterInstanciationWithoutObservers_Success() {
-        int exceptedAmountOfObservers = 0;
-        assertEquals(exceptedAmountOfObservers, twitter.getObservers().size());
+    public void observers_AfterInstantiationWithoutObservers_Success(){
+        //given
+        //refer to Before Each method
+        int expectedAmountOfObservers = 0;
+
+        //when
+        //event is called directly by the assertion
+
+        //then
+        assertEquals(expectedAmountOfObservers, _twitter.getObservers().size());
     }
 
     @Test
-    public void Observers_AfterInstanciationWithObservers_Succes() {
-        int exceptedAmountOfObservers = 10;
-        twitter = new Twitter(generateObserver(exceptedAmountOfObservers));
-        assertEquals(exceptedAmountOfObservers, twitter.getObservers().size());
+    public void observers_AfterInstantiationWithObservers_Success(){
+        //given
+        //refer to Before Each method
+        int expectedAmountOfObservers = 10;
+        _twitter = new Twitter(generateObserver(expectedAmountOfObservers));
+
+        //when
+        //event is called directly by the assertion
+
+        //then
+        assertEquals(expectedAmountOfObservers, _twitter.getObservers().size());
     }
 
     @Test
-    public void Twits_AfterInstanciation_Success() {
-        int exceptedAmountOfTwits = 0;
-        twitter = new Twitter();
-        assertEquals(exceptedAmountOfTwits, twitter.getTwits().size());
+    public void twits_AfterInstantiation_Success(){
+        //given
+        //refer to Before Each method
+        int expectedAmountOfTwits = 0;
+
+        //when
+        //event is called directly by the assertion
+
+        //then
+        assertEquals(expectedAmountOfTwits, _twitter.getTwits().size());
     }
 
     @Test
-    public void Notify_EmptyListOfSubscriber_ThrowsException() {
-        assertThrows(EmptyListOfSubscribersException.class, () -> twitter.signal());
+    public void notifySubscribers_EmptyListOfSubscriber_ThrowsException(){
+        //given
+        //refer to Before Each method
+
+        //when
+        //event is called directly by the assertion
+
+        //then
+        assertThrows(Twitter.EmptyListOfSubscribersException.class, () -> {
+            _twitter.notifyObservers();
+        });
     }
 
     @Test
-    public void Subscribe_AddFirstSubscribers_Success() throws SubscriberAlreadyExistsException {
+    public void subscribe_AddFirstSubscriber_Success() {
+        //given
+        //refer to Before Each method
         int expectedAmountOfSubscribers = 15;
         List<IObserver> followers = generateObserver(expectedAmountOfSubscribers);
-        twitter.subscribe(followers);
 
-        assertEquals(expectedAmountOfSubscribers, twitter.getObservers().size());
+        //when
+        _twitter.subscribe(followers);
+
+        //then
+        assertEquals(expectedAmountOfSubscribers, _twitter.getObservers().size());
     }
 
     @Test
-    public void Subscribe_AddSubscribersToExistingList_Success() throws SubscriberAlreadyExistsException {
-        int expectedAmountOfSubscribers = 30;
-        List<IObserver> followers = generateObserver(expectedAmountOfSubscribers / 2);
-        twitter.subscribe(followers);
-        List<IObserver> followers2nd = generateObserver(expectedAmountOfSubscribers / 2);
-        twitter.subscribe(followers2nd);
-        assertEquals(expectedAmountOfSubscribers, twitter.getObservers().size());
+    public void subscribe_AddSubscribersToExistingList_Success(){
+        //given
+        //refer to Before Each method
+        int expectedAmountOfSubscriber = 30;
+        List<IObserver> followers = generateObserver(expectedAmountOfSubscriber / 2);
+        _twitter.subscribe(followers);
+        List<IObserver> followersToAdd = generateObserver(expectedAmountOfSubscriber / 2);
+
+        //when
+        _twitter.subscribe(followersToAdd);
+
+        //then
+        assertEquals(expectedAmountOfSubscriber, _twitter.getObservers().size());
     }
 
     @Test
-    public void Subscribe_SubscriberAlreadyExists_ThrowsException() throws SubscriberAlreadyExistsException {
-        int expectedAmountOfSubscribers = 15;
-        List<IObserver> followers = generateObserver(expectedAmountOfSubscribers);
-        twitter.subscribe(followers);
-        List<IObserver> followersDuplicate = new LinkedList<>();
+    public void subscribe_SubscriberAlreadyExists_ThrowsException(){
+        //given
+        //refer to Before Each method
+        int expectedAmountOfSubscriber = 15;
+        List<IObserver> followers = generateObserver(expectedAmountOfSubscriber);
+        _twitter.subscribe(followers);
+        List<IObserver> followersDuplicate = new ArrayList<IObserver>();
         followersDuplicate.add(followers.get(0));
 
-        assertThrows(SubscriberAlreadyExistsException.class, () -> twitter.subscribe(followersDuplicate));
+        //when
+        //event is called directly by the assertion
+
+        //then
+        assertThrows(Twitter.SubscriberAlreadyExistsException.class, () -> {
+            _twitter.subscribe(followersDuplicate);
+        });
     }
 
     @Test
-    public void Unsubscribe_NominalCase_Success() throws SubscriberAlreadyExistsException, SubscriberNotFoundException, EmptyListOfSubscribersException {
-        List<IObserver> followers = generateObserver(20);
-        twitter.subscribe(followers);
-        twitter.unsubscribe(followers.get(10));
-        assertEquals(followers.size() - 1, twitter.getObservers().size());
-    }
-
-    @Test
-    public void Unsubscribe_EmptyListOfSubscriber_ThrowsException() {
+    public void unsubscribe_EmptyListOfSubscriber_ThrowsException()
+    {
+        //given
+        //refer to Before Each method
         Follower followerToRemove = new Follower();
-        assertThrows(EmptyListOfSubscribersException.class, () -> twitter.unsubscribe(followerToRemove));
+
+        //when
+        //event is called directly by the assertion
+
+        //then
+        assertThrows(Twitter.EmptyListOfSubscribersException.class, () -> {
+            _twitter.unsubscribe(followerToRemove);
+        });
     }
 
     @Test
-    public void Unsubscribe_SubscriberNotFound_ThrowsException() throws SubscriberAlreadyExistsException {
+    public void unsubscribe_SubscriberNotFound_ThrowsException(){
+        //given
+        //refer to Before Each method
         IObserver followerNotFound = new Follower();
-        twitter.subscribe(generateObserver(10));
-        assertThrows(SubscriberNotFoundException.class, () -> twitter.unsubscribe(followerNotFound));
+        _twitter.subscribe(generateObserver(10));
+
+        //when
+        //event is called directly by the assertion
+
+        //then
+        assertThrows(Twitter.SubscriberNotFoundException.class, () -> {
+            _twitter.unsubscribe(followerNotFound);
+        });
     }
 
 
-    private List<IObserver> generateObserver(int amountOfObserverToCreate) {
-        List<IObserver> observers = new LinkedList<>();
-        for (int i = 0; i < amountOfObserverToCreate; i++) {
+    //endregion public methods
+
+    //region private methods
+    private List<IObserver> generateObserver(int amountOfObserverToCreate){
+        List<IObserver> observers = new ArrayList<IObserver>();
+        for(int i = 0 ; i < amountOfObserverToCreate; i++){
             observers.add(new Follower());
         }
         return observers;
     }
+    //endregion private methods
 }
