@@ -1,15 +1,10 @@
-package org.example.SocialNetworkModal;
+package org.example.SocialNetworkModel;
 
-import org.example.SocialNetworkModel.Follower;
-import org.example.SocialNetworkModel.IObserver;
-import org.example.SocialNetworkModel.Twitter;
 import org.example.SocialNetworkModel.exception.EmptyListOfSubscribersException;
 import org.example.SocialNetworkModel.exception.SubscriberAlreadyExistsException;
 import org.example.SocialNetworkModel.exception.SubscriberNotFoundException;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 
 import java.util.LinkedList;
 import java.util.List;

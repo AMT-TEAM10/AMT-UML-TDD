@@ -7,14 +7,15 @@ import org.example.SocialNetworkModel.exception.SubscriberNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Twitter implements IObservable{
+public class Twitter implements IObservable {
     private final List<IObserver> observers = new ArrayList<>();
     private final List<String> twits = new ArrayList<>();
 
-    public Twitter(){}
+    public Twitter() {
+    }
 
-    public Twitter(List<IObserver> observers) {
-        this.observers.addAll(observers);
+    public Twitter(List<IObserver> observers) throws SubscriberAlreadyExistsException {
+        subscribe(observers);
     }
 
     public List<IObserver> getObservers() {
@@ -30,9 +31,8 @@ public class Twitter implements IObservable{
         for (IObserver ob : observer) {
             if (exists(ob)) {
                 throw new SubscriberAlreadyExistsException();
-            } else {
-                observers.add(ob);
             }
+            observers.add(ob);
         }
     }
 
@@ -52,23 +52,23 @@ public class Twitter implements IObservable{
             throw new EmptyListOfSubscribersException();
         }
 
-        for (IObserver ob: observers) {
+        for (IObserver ob : observers) {
             ob.update(this);
         }
     }
 
-    public void post(String twit){
+    public void post(String twit) {
         twits.add(twit);
     }
 
-    public String getLastTwit(){
+    public String getLastTwit() {
         if (twits.isEmpty()) {
             return null;
         }
         return twits.get(twits.size() - 1);
     }
 
-    public boolean exists(IObserver followerToFind){
+    public boolean exists(IObserver followerToFind) {
         return observers.contains(followerToFind);
     }
 }
