@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="iso-8859-15" standalone="no"?>
+<classDiagram>
+  <diagramElements defaultViewEntities="ALL" defaultViewEnum="true" defaultViewMethods="TYPE_AND_NAME" defaultVisibleTypes="true" informations="" name="AMT-UML">
+    <inheritance id="401" innerClass="true">
+      <child>391</child>
+      <parent>144</parent>
+    </inheritance>
+    <inheritance id="399" innerClass="true">
+      <child>392</child>
+      <parent>144</parent>
+    </inheritance>
+    <inheritance id="398" innerClass="true">
+      <child>393</child>
+      <parent>144</parent>
+    </inheritance>
+    <inheritance id="396">
+      <child>391</child>
+      <parent>389</parent>
+    </inheritance>
+    <inheritance id="395">
+      <child>392</child>
+      <parent>389</parent>
+    </inheritance>
+    <inheritance id="394">
+      <child>393</child>
+      <parent>389</parent>
+    </inheritance>
+    <entity entityType="CLASS" id="393" isAbstract="false" name="SubscriberNotFoundException" visibility="PUBLIC"/>
+    <entity entityType="CLASS" id="392" isAbstract="false" name="SubscriberAlreadyExistsException" visibility="PUBLIC"/>
+    <entity entityType="CLASS" id="391" isAbstract="false" name="EmptyListOfSubscribersException" visibility="PUBLIC"/>
+    <inheritance id="390" innerClass="true">
+      <child>389</child>
+      <parent>144</parent>
+    </inheritance>
+    <entity entityType="CLASS" id="389" isAbstract="false" name="TwitterException" visibility="PUBLIC"/>
+    <association aggregation="NONE" direction="FIRST_TO_SECOND" id="246" name="">
+      <role componentId="144" name="" visibility="PRIVATE">
+        <multiplicity>
+          <min>1</min>
+          <max>1</max>
+        </multiplicity>
+      </role>
+      <role componentId="118" name="" visibility="PRIVATE">
+        <multiplicity>
+          <min>2147483647</min>
+          <max>2147483647</max>
+        </multiplicity>
+      </role>
+    </association>
+    <inheritance id="214">
+      <child>144</child>
+      <parent>42</parent>
+    </inheritance>
+    <entity entityType="CLASS" id="144" isAbstract="false" name="Twitter" visibility="PUBLIC">
+      <attribute const="false" defaultValue="" isStatic="false" name="__twits" type="List&lt;String&gt;" visibility="PRIVATE"/>
+      <method is-constructor="true" isAbstract="false" isStatic="false" name="Twitter" returnType="" view="DEFAULT" visibility="PUBLIC"/>
+      <method is-constructor="true" isAbstract="false" isStatic="false" name="Twitter" returnType="" view="DEFAULT" visibility="PUBLIC">
+        <variable const="false" name="observers" type="List&lt;IObserver&gt;"/>
+      </method>
+      <method isAbstract="false" isStatic="false" name="Observers" returnType="List&lt;IObserver&gt;" view="DEFAULT" visibility="PUBLIC"/>
+      <method isAbstract="false" isStatic="false" name="Twits" returnType="List&lt;String&gt;" view="DEFAULT" visibility="PUBLIC"/>
+      <method isAbstract="false" isStatic="false" name="Post" returnType="void" view="DEFAULT" visibility="PUBLIC">
+        <variable const="false" name="twit" type="string"/>
+      </method>
+      <method isAbstract="false" isStatic="false" name="LastTwit" returnType="string" view="DEFAULT" visibility="PUBLIC"/>
+      <method isAbstract="false" isStatic="false" name="Exists" returnType="bool" view="DEFAULT" visibility="PRIVATE">
+        <variable const="false" name="IObserver" type="followerToFind"/>
+      </method>
+    </entity>
+    <inheritance id="143">
+      <child>1</child>
+      <parent>118</parent>
+    </inheritance>
+    <entity entityType="INTERFACE" id="118" isAbstract="true" name="IObserver" visibility="PUBLIC">
+      <method isAbstract="true" isStatic="false" name="Update" returnType="void" view="DEFAULT" visibility="PUBLIC">
+        <variable const="false" name="observable" type="IObservable"/>
+      </method>
+    </entity>
+    <entity entityType="INTERFACE" id="42" isAbstract="true" name="IObservable" visibility="PUBLIC">
+      <method isAbstract="true" isStatic="false" name="Subscribe" returnType="void" view="DEFAULT" visibility="PUBLIC">
+        <variable const="false" name="observer" type="List&lt;IObserver&gt;"/>
+      </method>
+      <method isAbstract="true" isStatic="false" name="Unsubscribe" returnType="void" view="DEFAULT" visibility="PUBLIC">
+        <variable const="false" name="observer" type="IObserver"/>
+      </method>
+      <method isAbstract="true" isStatic="false" name="Notify" returnType="void" view="DEFAULT" visibility="PUBLIC"/>
+    </entity>
+    <entity entityType="CLASS" id="1" isAbstract="false" name="Follower" visibility="PUBLIC"/>
+  </diagramElements>
+  <umlView grid="10" name="Main view" open="true">
+    <relationView color="-12566464" relationId="143">
+      <line>
+        <point>
+          <x>901</x>
+          <y>81</y>
+        </point>
+        <point>
+          <x>791</x>
+          <y>81</y>
+        </point>
+      </line>
+    </relationView>
+    <relationView color="-12566464" relationId="214">
+      <line>
+        <point>
+          <x>371</x>
+          <y>371</y>
+        </point>
+        <point>
+          <x>371</x>
+          <y>155</y>
+        </point>
+      </line>
+    </relationView>
+    <relationView color="-12566464" relationId="246">
+      <line>
+        <point>
+          <x>521</x>
+          <y>481</y>
+        </point>
+        <point>
+          <x>681</x>
+          <y>481</y>
+        </point>
+        <point>
+          <x>681</x>
+          <y>125</y>
+        </point>
+      </line>
+      <labelAssociation>
+        <x>685</x>
+        <y>307</y>
+        <w>0</w>
+        <h>16</h>
+      </labelAssociation>
+      <roleAssociation>
+        <x>525</x>
+        <y>485</y>
+        <w>0</w>
+        <h>16</h>
+      </roleAssociation>
+      <roleAssociation>
+        <x>685</x>
+        <y>129</y>
+        <w>0</w>
+        <h>16</h>
+      </roleAssociation>
+      <multipliciteAssociation>
+        <x>525</x>
+        <y>459</y>
+        <w>8</w>
+        <h>16</h>
+      </multipliciteAssociation>
+      <multipliciteAssociation>
+        <x>658</x>
+        <y>133</y>
+        <w>7</w>
+        <h>16</h>
+      </multipliciteAssociation>
+    </relationView>
+    <relationView color="-12566464" relationId="390">
+      <line>
+        <point>
+          <x>361</x>
+          <y>641</y>
+        </point>
+        <point>
+          <x>361</x>
+          <y>546</y>
+        </point>
+      </line>
+    </relationView>
+    <relationView color="-12566464" relationId="394">
+      <line>
+        <point>
+          <x>201</x>
+          <y>751</y>
+        </point>
+        <point>
+          <x>201</x>
+          <y>731</y>
+        </point>
+        <point>
+          <x>371</x>
+          <y>731</y>
+        </point>
+        <point>
+          <x>371</x>
+          <y>696</y>
+        </point>
+      </line>
+    </relationView>
+    <relationView color="-12566464" relationId="395">
+      <line>
+        <point>
+          <x>431</x>
+          <y>751</y>
+        </point>
+        <point>
+          <x>431</x>
+          <y>731</y>
+        </point>
+        <point>
+          <x>371</x>
+          <y>731</y>
+        </point>
+        <point>
+          <x>371</x>
+          <y>696</y>
+        </point>
+      </line>
+    </relationView>
+    <relationView color="-12566464" relationId="396">
+      <line>
+        <point>
+          <x>671</x>
+          <y>751</y>
+        </point>
+        <point>
+          <x>671</x>
+          <y>731</y>
+        </point>
+        <point>
+          <x>371</x>
+          <y>731</y>
+        </point>
+        <point>
+          <x>371</x>
+          <y>696</y>
+        </point>
+      </line>
+    </relationView>
+    <relationView color="-12566464" relationId="398">
+      <line>
+        <point>
+          <x>151</x>
+          <y>751</y>
+        </point>
+        <point>
+          <x>151</x>
+          <y>511</y>
+        </point>
+        <point>
+          <x>251</x>
+          <y>511</y>
+        </point>
+      </line>
+    </relationView>
+    <relationView color="-12566464" relationId="399">
+      <line>
+        <point>
+          <x>491</x>
+          <y>751</y>
+        </point>
+        <point>
+          <x>491</x>
+          <y>546</y>
+        </point>
+      </line>
+    </relationView>
+    <relationView color="-12566464" relationId="401">
+      <line>
+        <point>
+          <x>731</x>
+          <y>751</y>
+        </point>
+        <point>
+          <x>731</x>
+          <y>531</y>
+        </point>
+        <point>
+          <x>521</x>
+          <y>531</y>
+        </point>
+      </line>
+    </relationView>
+    <componentView color="-2079" componentID="1" displayAttributes="true" displayDefault="true" displayMethods="true">
+      <geometry>
+        <x>900</x>
+        <y>50</y>
+        <w>250</w>
+        <h>55</h>
+      </geometry>
+    </componentView>
+    <componentView color="-2079" componentID="42" displayAttributes="true" displayDefault="true" displayMethods="true">
+      <geometry>
+        <x>230</x>
+        <y>40</y>
+        <w>270</w>
+        <h>114</h>
+      </geometry>
+    </componentView>
+    <componentView color="-2079" componentID="118" displayAttributes="true" displayDefault="true" displayMethods="true">
+      <geometry>
+        <x>540</x>
+        <y>40</y>
+        <w>250</w>
+        <h>84</h>
+      </geometry>
+    </componentView>
+    <componentView color="-2079" componentID="144" displayAttributes="true" displayDefault="true" displayMethods="true">
+      <geometry>
+        <x>250</x>
+        <y>370</y>
+        <w>270</w>
+        <h>175</h>
+      </geometry>
+    </componentView>
+    <componentView color="-2079" componentID="389" displayAttributes="true" displayDefault="true" displayMethods="true">
+      <geometry>
+        <x>290</x>
+        <y>640</y>
+        <w>150</w>
+        <h>55</h>
+      </geometry>
+    </componentView>
+    <componentView color="-2079" componentID="391" displayAttributes="true" displayDefault="true" displayMethods="true">
+      <geometry>
+        <x>560</x>
+        <y>750</y>
+        <w>220</w>
+        <h>55</h>
+      </geometry>
+    </componentView>
+    <componentView color="-2079" componentID="392" displayAttributes="true" displayDefault="true" displayMethods="true">
+      <geometry>
+        <x>320</x>
+        <y>750</y>
+        <w>220</w>
+        <h>55</h>
+      </geometry>
+    </componentView>
+    <componentView color="-2079" componentID="393" displayAttributes="true" displayDefault="true" displayMethods="true">
+      <geometry>
+        <x>100</x>
+        <y>750</y>
+        <w>200</w>
+        <h>55</h>
+      </geometry>
+    </componentView>
+  </umlView>
+</classDiagram>
