@@ -1,9 +1,5 @@
 package org.example.SocialNetworkModel;
 
-import org.example.SocialNetworkModel.exception.EmptyListOfSubscribersException;
-import org.example.SocialNetworkModel.exception.SubscriberAlreadyExistsException;
-import org.example.SocialNetworkModel.exception.SubscriberNotFoundException;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +43,7 @@ public class Twitter implements IObservable {
     }
 
     @Override
-    public void signal() throws EmptyListOfSubscribersException {
+    public void notifyObservers() throws EmptyListOfSubscribersException {
         if (observers.isEmpty()) {
             throw new EmptyListOfSubscribersException();
         }
@@ -70,5 +66,17 @@ public class Twitter implements IObservable {
 
     public boolean exists(IObserver followerToFind) {
         return observers.contains(followerToFind);
+    }
+
+    public static class TwitterException extends RuntimeException {
+    }
+
+    public static class EmptyListOfSubscribersException extends TwitterException {
+    }
+
+    public static class SubscriberAlreadyExistsException extends TwitterException {
+    }
+
+    public static class SubscriberNotFoundException extends TwitterException {
     }
 }
