@@ -10,8 +10,8 @@ public class Twitter implements IObservable {
     public Twitter() {
     }
 
-    public Twitter(List<IObserver> observers) {
-        this.observers.addAll(observers);
+    public Twitter(List<IObserver> observers) throws SubscriberAlreadyExistsException {
+        subscribe(observers);
     }
 
     public List<IObserver> getObservers() {
@@ -27,9 +27,8 @@ public class Twitter implements IObservable {
         for (IObserver ob : observer) {
             if (exists(ob)) {
                 throw new SubscriberAlreadyExistsException();
-            } else {
-                observers.add(ob);
             }
+            observers.add(ob);
         }
     }
 
@@ -68,7 +67,6 @@ public class Twitter implements IObservable {
     public boolean exists(IObserver followerToFind) {
         return observers.contains(followerToFind);
     }
-
 
     public static class TwitterException extends RuntimeException {
     }

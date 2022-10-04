@@ -1,11 +1,8 @@
-package org.example.SocialNetworkModal;
+package org.example.SocialNetworkModel;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.example.SocialNetworkModel.Follower;
-import org.example.SocialNetworkModel.IObserver;
-import org.example.SocialNetworkModel.Twitter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,12 +13,12 @@ public class TwitterTest {
     private Twitter _twitter;
 
     @BeforeEach
-    public void beforeEach(){
+    public void beforeEach() {
         _twitter = new Twitter();
     }
 
     @Test
-    public void observers_AfterInstantiationWithoutObservers_Success(){
+    public void observers_AfterInstantiationWithoutObservers_Success() {
         //given
         //refer to Before Each method
         int expectedAmountOfObservers = 0;
@@ -34,7 +31,7 @@ public class TwitterTest {
     }
 
     @Test
-    public void observers_AfterInstantiationWithObservers_Success(){
+    public void observers_AfterInstantiationWithObservers_Success() {
         //given
         //refer to Before Each method
         int expectedAmountOfObservers = 10;
@@ -48,7 +45,7 @@ public class TwitterTest {
     }
 
     @Test
-    public void twits_AfterInstantiation_Success(){
+    public void twits_AfterInstantiation_Success() {
         //given
         //refer to Before Each method
         int expectedAmountOfTwits = 0;
@@ -61,7 +58,7 @@ public class TwitterTest {
     }
 
     @Test
-    public void notifySubscribers_EmptyListOfSubscriber_ThrowsException(){
+    public void notifySubscribers_EmptyListOfSubscriber_ThrowsException() {
         //given
         //refer to Before Each method
 
@@ -89,7 +86,7 @@ public class TwitterTest {
     }
 
     @Test
-    public void subscribe_AddSubscribersToExistingList_Success(){
+    public void subscribe_AddSubscribersToExistingList_Success() {
         //given
         //refer to Before Each method
         int expectedAmountOfSubscriber = 30;
@@ -105,7 +102,7 @@ public class TwitterTest {
     }
 
     @Test
-    public void subscribe_SubscriberAlreadyExists_ThrowsException(){
+    public void subscribe_SubscriberAlreadyExists_ThrowsException() {
         //given
         //refer to Before Each method
         int expectedAmountOfSubscriber = 15;
@@ -124,8 +121,7 @@ public class TwitterTest {
     }
 
     @Test
-    public void unsubscribe_EmptyListOfSubscriber_ThrowsException()
-    {
+    public void unsubscribe_EmptyListOfSubscriber_ThrowsException() {
         //given
         //refer to Before Each method
         Follower followerToRemove = new Follower();
@@ -140,7 +136,7 @@ public class TwitterTest {
     }
 
     @Test
-    public void unsubscribe_SubscriberNotFound_ThrowsException(){
+    public void unsubscribe_SubscriberNotFound_ThrowsException() {
         //given
         //refer to Before Each method
         IObserver followerNotFound = new Follower();
@@ -159,9 +155,9 @@ public class TwitterTest {
     //endregion public methods
 
     //region private methods
-    private List<IObserver> generateObserver(int amountOfObserverToCreate){
+    private List<IObserver> generateObserver(int amountOfObserverToCreate) {
         List<IObserver> observers = new ArrayList<IObserver>();
-        for(int i = 0 ; i < amountOfObserverToCreate; i++){
+        for (int i = 0; i < amountOfObserverToCreate; i++) {
             observers.add(new Follower());
         }
         return observers;
